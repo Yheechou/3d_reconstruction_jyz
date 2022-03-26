@@ -25,3 +25,4 @@ pcd2.colors = o3d.utility.Vector3dVector(rgb_load)
 o3d.visualization.draw_geometries([pcd2])
 
 # o3d.io.write_point_cloud("new.ply", pcd2)
+# o3d.io.write_point_cloud("new.ply", pcd2)
