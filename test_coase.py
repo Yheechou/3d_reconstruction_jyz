@@ -1,3 +1,4 @@
+
 import open3d as o3d
 import numpy as np
 import copy
@@ -29,8 +30,8 @@ def preprocess_point_cloud(pcd, voxel_size):
 
 def prepare_dataset(voxel_size):
     print(":: Load two point clouds and disturb initial pose.")
-    source = o3d.io.read_point_cloud("data/cloud_bin_2.ply")
-    target = o3d.io.read_point_cloud("data/cloud_bin_0.ply")
+    source = o3d.io.read_point_cloud("/Users/apple/Desktop/3D_indoor/project2/cloud_bin_0.ply")
+    target = o3d.io.read_point_cloud("/Users/apple/Desktop/3D_indoor/project2/cloud_bin_1.ply")
     trans_init = np.asarray([[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0],
                              [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]])
     source.transform(trans_init)
@@ -66,3 +67,4 @@ if __name__ == "__main__":
                                             voxel_size)
     print(result_ransac)
     draw_registration_result(source_down, target_down, result_ransac.transformation)
+
