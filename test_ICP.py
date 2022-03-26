@@ -2,8 +2,12 @@ import open3d as o3d
 import numpy as np
 
 #读取电脑中的 ply 点云文件
-source = o3d.read_point_cloud("cloud_bin_0.pcd")  #source 为需要配准的点云
-target = o3d.read_point_cloud("cloud_bin_1.pcd")  #target 为目标点云
+source = o3d.io.read_point_cloud("cloud_bin_2.ply")  #source 为需要配准的点云
+target = o3d.io.read_point_cloud("cloud_bin_1.ply")  #target 为目标点云
+
+print(source.shape)
+print(target.source)
+
 
 #为两个点云上上不同的颜色
 source.paint_uniform_color([1, 0.706, 0])    #source 为黄色
@@ -31,6 +35,10 @@ reg_p2p = o3d.registration.registration_icp(
 #将我们的矩阵依照输出的变换矩阵进行变换
 print(reg_p2p)
 processed_source.transform(reg_p2p.transformation)
+
+#将变换的矩阵存储下来
+o3d.io.write_point_cloud("cloud21_source.ply",processed_source)
+o3d.io.write_point_cloud("cloud21_target.ply",processed_target)
 
 #创建一个 o3d.visualizer class
 vis = o3d.visualization.Visualizer()

@@ -2,6 +2,11 @@
 import open3d as o3d   #导入open3d
 import numpy as np
 pcd = o3d.io.read_point_cloud("cloud_bin_0.pcd")
+pcd_1 = o3d.io.read_point_cloud("cloud_bin_2.pcd")
+
+xyz_load = np.asarray(pcd.points)
+rgb_load = np.asarray(pcd.colors)
+nxyz_load=np.asarray(pcd.normals)
 
 xyz_load = np.asarray(pcd.points)
 rgb_load = np.asarray(pcd.colors)
