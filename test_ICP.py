@@ -41,8 +41,8 @@ print(reg_p2p)
 processed_source.transform(reg_p2p.transformation)
 
 #将变换的矩阵存储下来
-o3d.io.write_point_cloud("source.ply",processed_source)
-o3d.io.write_point_cloud("target.ply",processed_target)
+#o3d.io.write_point_cloud("source.ply",processed_source)
+#o3d.io.write_point_cloud("target.ply",processed_target)
 
 #创建一个 o3d.visualizer class
 vis = o3d.visualization.Visualizer()
