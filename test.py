@@ -1,28 +1,50 @@
 
-import open3d as o3d   #导入open3d
 import numpy as np
-pcd = o3d.io.read_point_cloud("cloud_bin_0.pcd")
-pcd_1 = o3d.io.read_point_cloud("cloud_bin_2.pcd")
+import pandas as pd
+from time import *
 
-xyz_load = np.asarray(pcd.points)
-rgb_load = np.asarray(pcd.colors)
-nxyz_load=np.asarray(pcd.normals)
+begin_time = time()
 
-xyz_load = np.asarray(pcd.points)
-rgb_load = np.asarray(pcd.colors)
-nxyz_load=np.asarray(pcd.normals)
+x1 = pd.read_table('to_yunqi_offline_data/ipark_room_fpcd/3_room_0.txt', sep="\t", header=None)
+x2 = pd.read_table('to_yunqi_offline_data/ipark_room_fpcd/1_room_0.txt', sep="\t", header=None)
+num1 = int(x1[0][0]) # num is the number of points
+num2 = int(x2[0][0]) # num is the number of points
 
-# help(pcd)
-print(xyz_load.shape)
-print("------------")
-print(rgb_load.shape)
-print(nxyz_load.shape)
+feature1 = np.zeros([20,20], dtype = int)
+feature2 = np.zeros([20,20], dtype = int)
 
-pcd2 = o3d.geometry.PointCloud()
-pcd2.points = o3d.utility.Vector3dVector(xyz_load)
-pcd2.colors = o3d.utility.Vector3dVector(rgb_load)
+real_feature1 = np.zeros(20, dtype = int)
+real_feature2 = np.zeros(20, dtype = int)
 
-o3d.visualization.draw_geometries([pcd2])
+for i in range(1,num1+1):
+    temp = x1[0][i].split(' ') # each point data, for each row
+    y = int(temp[6]) # the instance label
+    if y % 10000 >= 20 or y % 10000 <= 0:
+        continue
+    feature1[int(y/10000)][y%10000] = 1
 
-# o3d.io.write_point_cloud("new.ply", pcd2)
-# o3d.io.write_point_cloud("new.ply", pcd2)
+for i in range(1,20):
+    real_feature1[i] = np.linalg.norm(feature1[i],ord=1)
+
+for i in range(1,num2+1):
+    temp = x2[0][i].split(' ') # each point data, for each row
+    y = int(temp[6]) # the instance label
+    if y % 10000 >= 20 or y % 10000 <= 0:
+        continue
+    feature2[int(y/10000)][y%10000] = 1
+
+for i in range(1,20):
+    real_feature2[i] = np.linalg.norm(feature2[i],ord=1)
+
+end_time = time()
+
+print(end_time - begin_time)
+
+h1 = real_feature1/np.linalg.norm(real_feature1)
+h2 = real_feature2/np.linalg.norm(real_feature2)
+
+print(real_feature1)
+print(real_feature2)
+print(np.matmul(h1.T,h2))
+
+

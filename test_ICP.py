@@ -2,14 +2,14 @@ import open3d as o3d
 import numpy as np
 
 #读取电脑中的 ply 点云文件
-source = o3d.io.read_point_cloud("/Users/apple/Desktop/3D_indoor/project2/cloud_bin_0.ply")  #source 为需要配准的点云
-target = o3d.io.read_point_cloud("/Users/apple/Desktop/3D_indoor/project2/cloud_bin_1.ply")  #target 为目标点云
+source = o3d.io.read_point_cloud("/Users/apple/Desktop/3D室内重建/project2/scannet_20/scene0403_00/scene0403_00_vh_clean.ply")  #source 为需要配准的点云
+target = o3d.io.read_point_cloud("/Users/apple/Desktop/3D室内重建/project2/scannet_20/scene0403_01/scene0403_01_vh_clean.ply")  #target 为目标点云
 print(source)
 print(target)
 
 print("Downsample the point cloud with a voxel of 0.05")
-source = o3d.geometry.voxel_down_sample(source,voxel_size=0.01)
-target = o3d.geometry.voxel_down_sample(target,voxel_size=0.01)
+source = o3d.geometry.voxel_down_sample(source,voxel_size=0.1)
+target = o3d.geometry.voxel_down_sample(target,voxel_size=0.1)
 print(source)
 print(target)
 
